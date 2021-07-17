@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+  
+</head>
+<body>
+    
+    <!-- 2. Susikurti objektą "Trikampis".
+Objektas turi priimti du kintamuosius: a, b, c kraštines.
+Sukurti metodus, kurie skaičiuoja plotą, perimetrą, pusperimetrį, bei kiekvieną iš trikampio kampų.
+Informaciją išvesti į <p> žymę. -->
+
+    <input id="krastine1" name="krastine1" value="5" >
+    <input id="krastine2" name="krastine2" value="3" >
+    <input id="krastine3" name="krastine3" value="7" >
+
+    <button id="skaiciuokplota">Plotas</button>
+    <button id="skaiciuokperimetra">Perimetras</button>
+    <button id="skaiciuokpusperimetri">Pusperimetris</button>
+    <button id="kampai">Kampai</button>
+
+
+    <div id="rezultatas"></div>
+
+
+    <div class="braizymas">
+       
+    </div>
+
+    <script>
+        "use strict"
+
+        var trikampis = {
+        a: 0,
+        b: 0,
+        c: 0,
+        arTrikampis:false,
+        pusperimetris: 0,
+        perimetras: 0,
+        pusPer: 0,
+        kampasAlfa: 0,
+        kampasBeta: 0,
+        kampasGama: 0,
+
+        paleidimas: function (krastine1, krastine2, krastine3) {
+this.a=krastine1;
+this.b=krastine2;
+this.c=krastine3;
+        },
+
+tikrinimas: function() {
+if(this.a+this.b>this.c && this.b+this.c>this.a && this.a+this.c>this.b) {
+
+    return true;
+}
+return false;
+},
+
+skaiciuokpusperimetri: function() {
+            this.tikrinimas();
+                if(this.tikrinimas())
+                {
+                    this.pusperimetris = ((this.a + this.b + this.c) / 2);
+                    this.pusperimetris= Math.round(this.pusperimetris*100)/100;
+                    return this.pusperimetris;
+                } else {
+                    return 'Tai ne trikampis' ;
+                }           
+            },
+
+            skaiciuokperimetra: function() {
+            this.tikrinimas();
+                if(this.tikrinimas())
+                {
+                    this.perimetras = (this.a + this.b + this.c);
+                    this.perimetras= Math.round(this.perimetras*100)/100;
+                    return this.perimetras;
+                } else {
+                    return 'Tai ne trikampis' ;
+                }           
+            },
+
+            skaiciuokplota: function() {
+            this.tikrinimas();
+                if(this.tikrinimas())
+                {
+                    this.pusPer = ((this.a + this.b + this.c) / 2);
+                    this.plotas = Math.sqrt(this.pusPer*(this.pusPer-this.a)*(this.pusPer-this.b)*(this.pusPer-this.c));
+                    this.plotas= Math.round(this.plotas*100)/100;
+                    return this.plotas;
+                } else {
+                    return 'Tai ne trikampis' ;
+                }           
+            },
+
+            kampai: function() {
+            this.tikrinimas();
+                if(this.tikrinimas())
+                { var pi=Math.PI;
+                    this.kampasAlfa = ((Math.acos((Math.pow(this.b,2)+Math.pow(this.c,2)-Math.pow(this.a,2))/(2*this.b*this.c)))*(180/pi));
+                    this.kampasAlfa= Math.round(this.kampasAlfa*100)/100;
+                    this.kampasBeta = (Math.acos((Math.pow(this.a,2)+Math.pow(this.c,2)-Math.pow(this.b,2))/(2*this.a*this.c)))*(180/pi);
+                    this.kampasBeta= Math.round(this.kampasBeta*100)/100;
+                    this.kampasGama = (Math.acos((Math.pow(this.a,2)+Math.pow(this.b,2)-Math.pow(this.c,2))/(2*this.a*this.b)))*(180/pi);
+                    this.kampasGama= Math.round(this.kampasGama*100)/100;
+                    return "Kampas Alfa: "+ this.kampasAlfa +" Kampas Beta: "+ this.kampasBeta +" Kampas Gama: "+ this.kampasGama;
+                
+                    
+                } else {
+                    return 'Tai ne trikampis' ;
+                }           
+            },
+            
+        };
+document.querySelector('#skaiciuokpusperimetri').addEventListener('click', function() {
+
+    var krastine1 = parseFloat(document.querySelector('#krastine1').value);
+    var krastine2 = parseFloat(document.querySelector('#krastine2').value);
+    var krastine3 = parseFloat(document.querySelector('#krastine3').value);
+
+var isvedimas = document.querySelector('#rezultatas')
+trikampis.paleidimas(krastine1, krastine2, krastine3);
+
+isvedimas.innerHTML=trikampis.skaiciuokpusperimetri();
+});
+
+document.querySelector('#skaiciuokperimetra').addEventListener('click', function() {
+
+var krastine1 = parseFloat(document.querySelector('#krastine1').value);
+var krastine2 = parseFloat(document.querySelector('#krastine2').value);
+var krastine3 = parseFloat(document.querySelector('#krastine3').value);
+
+var isvedimas = document.querySelector('#rezultatas')
+trikampis.paleidimas(krastine1, krastine2, krastine3);
+
+isvedimas.innerHTML=trikampis.skaiciuokperimetra();
+});
+
+document.querySelector('#skaiciuokplota').addEventListener('click', function() {
+
+var krastine1 = parseFloat(document.querySelector('#krastine1').value);
+var krastine2 = parseFloat(document.querySelector('#krastine2').value);
+var krastine3 = parseFloat(document.querySelector('#krastine3').value);
+
+var isvedimas = document.querySelector('#rezultatas')
+trikampis.paleidimas(krastine1, krastine2, krastine3);
+
+isvedimas.innerHTML=trikampis.skaiciuokplota();
+});
+
+document.querySelector('#kampai').addEventListener('click', function() {
+
+var krastine1 = parseFloat(document.querySelector('#krastine1').value);
+var krastine2 = parseFloat(document.querySelector('#krastine2').value);
+var krastine3 = parseFloat(document.querySelector('#krastine3').value);
+
+var isvedimas = document.querySelector('#rezultatas')
+
+trikampis.paleidimas(krastine1, krastine2, krastine3);
+
+isvedimas.innerHTML=trikampis.kampai();
+});
+
+
+
+        </script>
+</body>
+</html>
